@@ -139,12 +139,18 @@ export function ChatKitPanel({
   );
 
   useEffect(() => {
+    console.log("🔍 Workflow check - ID:", WORKFLOW_ID);
+    console.log("🔍 Is configured:", isWorkflowConfigured);
+
     if (!isWorkflowConfigured && isMountedRef.current) {
+      console.error("❌ WORKFLOW_ID not configured!");
       setErrorState({
-        session: "Set NEXT_PUBLIC_CHATKIT_WORKFLOW_ID in your .env.local file.",
+        session: `Workflow ID not configured. Value: "${WORKFLOW_ID}". Please set NEXT_PUBLIC_CHATKIT_WORKFLOW_ID in Vercel.`,
         retryable: false,
       });
       setIsInitializingSession(false);
+    } else if (isWorkflowConfigured) {
+      console.log("✅ WORKFLOW_ID is configured");
     }
   }, [isWorkflowConfigured, setErrorState]);
 
