@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [
           {
+            key: "Reporting-Endpoints",
+            value: 'default="/api/csp-report"',
+          },
+          {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
@@ -25,11 +29,12 @@ const nextConfig: NextConfig = {
               "worker-src 'self' blob:",
               "child-src 'self' blob: https://*.openai.com",
               "media-src 'self' blob: https://*.openai.com",
+              "report-to default",
             ].join("; "),
           },
           {
             key: "Permissions-Policy",
-            value: "fullscreen=*, picture-in-picture=*, display-capture=*",
+            value: "fullscreen=(self \"https://cdn.platform.openai.com\" \"https://sentinel.openai.com\" \"https://chatgpt.com\"), picture-in-picture=*, display-capture=*",
           },
         ],
       },
