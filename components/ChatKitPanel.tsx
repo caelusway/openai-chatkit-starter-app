@@ -18,11 +18,15 @@ export type FactAction = {
   factText: string;
 };
 
+export type ThreadChangeEvent = {
+  threadId: string | null;
+};
+
 type ChatKitPanelProps = {
-  theme: ColorScheme;
   onWidgetAction: (action: FactAction) => Promise<void>;
   onResponseEnd: () => void;
   onThemeRequest: (scheme: ColorScheme) => void;
+  onThreadChange?: (event: ThreadChangeEvent) => void;
 };
 
 type ErrorState = {
@@ -43,10 +47,10 @@ const createInitialErrors = (): ErrorState => ({
 });
 
 export function ChatKitPanel({
-  theme,
   onWidgetAction,
   onResponseEnd,
   onThemeRequest,
+  onThreadChange,
 }: ChatKitPanelProps) {
   const processedFacts = useRef(new Set<string>());
   const [errors, setErrors] = useState<ErrorState>(() => createInitialErrors());
@@ -257,15 +261,15 @@ export function ChatKitPanel({
   const chatkit = useChatKit({
     api: { getClientSecret },
     theme: {
-      colorScheme: theme,
+      colorScheme: "dark",
       color: {
         grayscale: {
-          hue: 220,
-          tint: 6,
-          shade: theme === "dark" ? -1 : -4,
+          hue: 240,
+          tint: 1,
+          shade: -4,
         },
         accent: {
-          primary: theme === "dark" ? "#f1f5f9" : "#0f172a",
+          primary: "#ffffff",
           level: 1,
         },
       },
@@ -320,8 +324,11 @@ export function ChatKitPanel({
     onResponseStart: () => {
       setErrorState({ integration: null, retryable: false });
     },
-    onThreadChange: () => {
+    onThreadChange: (event: { threadId: string | null }) => {
       processedFacts.current.clear();
+      if (onThreadChange) {
+        onThreadChange(event);
+      }
     },
     onError: ({ error }: { error: unknown }) => {
       // Note that Chatkit UI handles errors for your users.
@@ -344,7 +351,7 @@ export function ChatKitPanel({
   }
 
   return (
-    <div className="relative flex h-[90vh] w-full flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-zinc-950 transition-colors">
       <ChatKit
         key={widgetInstanceKey}
         control={chatkit.control}
