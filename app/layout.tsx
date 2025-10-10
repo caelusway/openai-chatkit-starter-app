@@ -15,6 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta
+          httpEquiv="Permissions-Policy"
+          content='fullscreen=(self "https://cdn.platform.openai.com" "https://sentinel.openai.com" "https://chatgpt.com" "https://cdn.openai.com")'
+        />
         <Script
           src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
           strategy="beforeInteractive"
