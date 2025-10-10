@@ -18,15 +18,10 @@ export type FactAction = {
   factText: string;
 };
 
-export type ThreadChangeEvent = {
-  threadId: string | null;
-};
-
 type ChatKitPanelProps = {
   onWidgetAction: (action: FactAction) => Promise<void>;
   onResponseEnd: () => void;
   onThemeRequest: (scheme: ColorScheme) => void;
-  onThreadChange?: (event: ThreadChangeEvent) => void;
 };
 
 type ErrorState = {
@@ -50,7 +45,6 @@ export function ChatKitPanel({
   onWidgetAction,
   onResponseEnd,
   onThemeRequest,
-  onThreadChange,
 }: ChatKitPanelProps) {
   const processedFacts = useRef(new Set<string>());
   const [errors, setErrors] = useState<ErrorState>(() => createInitialErrors());
@@ -176,6 +170,13 @@ export function ChatKitPanel({
         });
       }
 
+      if (isMountedRef.current) {
+        if (!currentSecret) {
+          setIsInitializingSession(true);
+        }
+        setErrorState({ session: null, integration: null, retryable: false });
+      }
+
       if (!isWorkflowConfigured) {
         const detail =
           "Set NEXT_PUBLIC_CHATKIT_WORKFLOW_ID in your .env.local file.";
@@ -187,9 +188,6 @@ export function ChatKitPanel({
       }
 
       if (isMountedRef.current) {
-        if (!currentSecret) {
-          setIsInitializingSession(true);
-        }
         setErrorState({ session: null, integration: null, retryable: false });
       }
 
@@ -330,11 +328,8 @@ export function ChatKitPanel({
     onResponseStart: () => {
       setErrorState({ integration: null, retryable: false });
     },
-    onThreadChange: (event: { threadId: string | null }) => {
+    onThreadChange: () => {
       processedFacts.current.clear();
-      if (onThreadChange) {
-        onThreadChange(event);
-      }
     },
     onError: ({ error }: { error: unknown }) => {
       // Note that Chatkit UI handles errors for your users.
