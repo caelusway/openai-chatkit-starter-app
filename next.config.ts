@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "fullscreen=(self https://cdn.platform.openai.com https://sentinel.openai.com https://chatgpt.com https://cdn.openai.com), picture-in-picture=(self https://cdn.platform.openai.com https://sentinel.openai.com https://chatgpt.com https://cdn.openai.com), display-capture=*",
+            value: 'fullscreen=(self "https://cdn.platform.openai.com" "https://sentinel.openai.com" "https://chatgpt.com" "https://cdn.openai.com"), picture-in-picture=(self "https://cdn.platform.openai.com" "https://sentinel.openai.com" "https://chatgpt.com" "https://cdn.openai.com"), display-capture=*',
           },
         ],
       },
