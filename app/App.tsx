@@ -156,7 +156,6 @@ export default function App() {
           onThreadChange={handleThreadChange}
         />
       </main>
-      <DiagnosticInfo />
     </div>
   );
 }
