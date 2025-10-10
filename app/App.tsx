@@ -148,6 +148,7 @@ export default function App() {
   return (
     <div className="flex h-screen bg-black">
       <main className="flex flex-1 flex-col bg-zinc-950">
+        
         <ChatKitPanel
           key={currentSessionId}
           onWidgetAction={handleWidgetAction}
