@@ -12,27 +12,12 @@ export const CREATE_SESSION_ENDPOINT = "/api/create-session";
 
 export const STARTER_PROMPTS: StartScreenPrompt[] = [
   {
-    label: "What are the most promising anti-aging therapies currently being explored, and how do they work at a cellular level?",
-    prompt: "What are the most promising anti-aging therapies currently being explored, and how do they work at a cellular level?",
-    icon: "sparkle",
-  },
-  {
-    label: "How does cellular senescence contribute to aging, and what interventions can target senescent cells?",
-    prompt: "How does cellular senescence contribute to aging, and what interventions can target senescent cells?",
+    label: "What can you do?",
+    prompt: "What can you do?",
     icon: "circle-question",
-  },
-  {
-    label: "What is the role of NAD+ in aging, and how can NAD+ boosters potentially extend healthspan?",
-    prompt: "What is the role of NAD+ in aging, and how can NAD+ boosters potentially extend healthspan?",
-    icon: "atom",
-  },
-  {
-    label: "How does mitochondrial dysfunction impact aging, and what strategies can optimize mitochondrial health?",
-    prompt: "How does mitochondrial dysfunction impact aging, and what strategies can optimize mitochondrial health?",
-    icon: "lightbulb",
   },
 ];
 
-export const PLACEHOLDER_INPUT = "Ask about longevity, health, and wellness...";
+export const PLACEHOLDER_INPUT = "Ask anything...";
 
-export const GREETING = "Welcome to Aubrai Longevity Agent!";
+export const GREETING = "How can I help you today?";
